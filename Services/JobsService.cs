@@ -1,28 +1,54 @@
 using System;
+using System.Collections.Generic;
 using Contracting.Models;
+using Contracting.Repositories;
 
 namespace Contracting.Services
 {
   public class JobsService
   {
-    internal object GetAll()
+    private readonly JobsRepository _repo;
+    public JobsService(JobsRepository repo)
     {
-      throw new NotImplementedException();
+      _repo = repo;
     }
 
-    internal object GetById(int id)
+    internal IEnumerable<Job> GetAll()
     {
-      throw new NotImplementedException();
+      return _repo.GetAll();
     }
 
-    internal object Create(Job newJob)
+    internal Job GetById(int id)
     {
-      throw new NotImplementedException();
+      var data = _repo.GetById(id);
+      if (data == null)
+      {
+        throw new Exception("Invalid Id");
+      }
+      return data;
     }
 
-    internal object Edit(Job updated)
+    internal Job Create(Job newJob)
     {
-      throw new NotImplementedException();
+      return _repo.Create(newJob);
+    }
+
+    internal Job Edit(Job updated)
+    {
+      var data = GetById(updated.Id);
+
+      updated.Location = updated.Location != null ? updated.Location : data.Location;
+      updated.Description = updated.Description != null ? updated.Description : data.Description;
+      updated.Contact = updated.Contact != null ? updated.Contact : data.Contact;
+
+      return _repo.Edit(updated);
+    }
+
+    internal string Delete(int id)
+    {
+      var data = GetById(id);
+      _repo.Delete(id);
+      return "DELETED";
     }
   }
 }
