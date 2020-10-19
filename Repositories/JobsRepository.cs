@@ -19,7 +19,7 @@ namespace Contracting.Repositories
       return _db.Query<Job>(sql);
     }
 
-    internal object GetById(int id)
+    internal Job GetById(int id)
     {
       string sql = "SELECT * FROM jobs WHERE id = @id";
       return _db.QueryFirstOrDefault<Job>(sql, new { id });
