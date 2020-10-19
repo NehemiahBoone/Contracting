@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using Contracting.Models;
+using Dapper;
 
 namespace Contracting.Repositories
 {
@@ -14,27 +15,46 @@ namespace Contracting.Repositories
     }
     internal IEnumerable<Job> GetAll()
     {
-      throw new NotImplementedException();
+      string sql = "SELECT * FROM jobs";
+      return _db.Query<Job>(sql);
     }
 
     internal object GetById(int id)
     {
-      throw new NotImplementedException();
+      string sql = "SELECT * FROM jobs WHERE id = @id";
+      return _db.QueryFirstOrDefault<Job>(sql, new { id });
     }
 
     internal Job Create(Job newJob)
     {
-      throw new NotImplementedException();
+      string sql = @"
+      INSERT INTO jobs
+      (location, description, contact, hourlyPay)
+      VALUES
+      (@Location, @Description, @Contact, @HourlyPay);
+      SELECT LAST_INSERT_ID();";
+      int id = _db.ExecuteScalar<int>(sql, newJob);
+      newJob.Id = id;
+      return newJob;
     }
 
     internal Job Edit(Job updated)
     {
-      throw new NotImplementedException();
+      string sql = @"
+      UPDATE jobs
+      SET
+        location = @Location,
+        description = @Description,
+        price = @Price
+      WHERE id = @Id;";
+      _db.Execute(sql, updated);
+      return updated;
     }
 
     internal void Delete(int id)
     {
-      throw new NotImplementedException();
+      string sql = "DELETE FROM jobs WHERE id = @id";
+      _db.Execute(sql, new { id });
     }
   }
 }
