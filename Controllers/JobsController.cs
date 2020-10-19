@@ -67,5 +67,18 @@ namespace Contracting.Controllers
         return BadRequest(e.Message);
       }
     }
+
+    [HttpDelete("{id}")]
+    public ActionResult<Job> Delete(int id)
+    {
+      try
+      {
+        return Ok(_service.Delete(id));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
   }
 }
