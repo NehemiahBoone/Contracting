@@ -43,9 +43,10 @@ namespace Contracting.Repositories
       string sql = @"
       UPDATE jobs
       SET
+        contact = @Contact,
         location = @Location,
         description = @Description,
-        price = @Price
+        hourlyPay = @HourlyPay
       WHERE id = @Id;";
       _db.Execute(sql, updated);
       return updated;

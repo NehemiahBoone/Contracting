@@ -7,12 +7,12 @@ namespace Contracting.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class JobsController : ControllerBase
+  public class ContractorsController : ControllerBase
   {
-    private readonly JobsService _service;
-    public JobsController(JobsService js)
+    private readonly ContractorsService _service;
+    public ContractorsController(ContractorsService cs)
     {
-      _service = js;
+      _service = cs;
     }
 
     [HttpGet]
@@ -29,7 +29,7 @@ namespace Contracting.Controllers
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Job> GetById(int id)
+    public ActionResult<Contractor> GetById(int id)
     {
       try
       {
@@ -42,11 +42,11 @@ namespace Contracting.Controllers
     }
 
     [HttpPost]
-    public ActionResult<Job> Create([FromBody] Job newJob)
+    public ActionResult<Contractor> Create([FromBody] Contractor newContractor)
     {
       try
       {
-        return Ok(_service.Create(newJob));
+        return Ok(_service.Create(newContractor));
       }
       catch (Exception e)
       {
@@ -55,7 +55,7 @@ namespace Contracting.Controllers
     }
 
     [HttpPut("{id}")]
-    public ActionResult<Job> Edit([FromBody] Job updated, int id)
+    public ActionResult<Contractor> Edit([FromBody] Contractor updated, int id)
     {
       try
       {
@@ -69,7 +69,7 @@ namespace Contracting.Controllers
     }
 
     [HttpDelete("{id}")]
-    public ActionResult<Job> Delete(int id)
+    public ActionResult<Contractor> Delete(int id)
     {
       try
       {
