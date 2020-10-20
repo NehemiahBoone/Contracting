@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Contracting.Models;
 using Contracting.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,11 @@ namespace Contracting.Controllers
   public class ContractorsController : ControllerBase
   {
     private readonly ContractorsService _service;
-    public ContractorsController(ContractorsService cs)
+    private readonly JobsService _jobsService;
+    public ContractorsController(ContractorsService cs, JobsService js)
     {
       _service = cs;
+      _jobsService = js;
     }
 
     [HttpGet]
@@ -34,6 +37,19 @@ namespace Contracting.Controllers
       try
       {
         return Ok(_service.GetById(id));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [HttpGet("{id}/jobs")]
+    public ActionResult<IEnumerable<JobBidViewModel>> GetJobs(int id)
+    {
+      try
+      {
+        return Ok(_jobsService.GetJobsByContractorId(id));
       }
       catch (Exception e)
       {

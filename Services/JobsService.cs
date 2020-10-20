@@ -50,5 +50,11 @@ namespace Contracting.Services
       _repo.Delete(id);
       return "DELETED";
     }
+
+
+    internal IEnumerable<JobBidViewModel> GetJobsByContractorId(int id)
+    {
+      return _repo.GetJobsByContractorId(id);
+    }
   }
 }

@@ -13,4 +13,10 @@ namespace Contracting.Models
     public decimal HourlyPay { get; set; }
     public int Id { get; set; }
   }
+
+  public class JobBidViewModel : Job
+  {
+    public int BidId { get; set; }
+    public double BidRate { get; set; }
+  }
 }
