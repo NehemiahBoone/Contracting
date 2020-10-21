@@ -61,6 +61,9 @@ namespace Contracting
       services.AddTransient<ProfilesService>();
       services.AddTransient<ProfilesRepository>();
 
+      services.AddTransient<ReviewsService>();
+      services.AddTransient<ReviewsRepository>();
+
       services.AddTransient<JobsService>();
       services.AddTransient<JobsRepository>();
 
