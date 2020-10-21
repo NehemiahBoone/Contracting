@@ -3,7 +3,6 @@ namespace Contracting.Models
   public class Bid
   {
     public int Id { get; set; }
-    public int BidId { get; set; }
     public int JobId { get; set; }
     public int ContractorId { get; set; }
     public double BidRate { get; set; }

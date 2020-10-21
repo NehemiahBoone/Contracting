@@ -17,9 +17,9 @@ namespace Contracting.Repositories
     {
       string sql = @"
       INSERT INTO bids
-      (bidId, jobId, contractorId, bidRate)
+      (jobId, contractorId, bidRate)
       VALUES
-      (@BidId, @JobId, @ContractorId, @BidRate);";
+      (@JobId, @ContractorId, @BidRate);";
       _db.Execute(sql, newBid);
     }
 
