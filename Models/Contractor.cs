@@ -12,6 +12,5 @@ namespace Contracting.Models
     public string Contact { get; set; }
     public string Skills { get; set; }
     public int Id { get; set; }
-    public string CreatorId { get; set; }
   }
 }
