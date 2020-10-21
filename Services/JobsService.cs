@@ -37,6 +37,11 @@ namespace Contracting.Services
     {
       var data = GetById(updated.Id);
 
+      if (data.CreatorId != updated.CreatorId)
+      {
+        throw new Exception("Invalid Edit Permissions");
+      }
+
       updated.Location = updated.Location != null ? updated.Location : data.Location;
       updated.Description = updated.Description != null ? updated.Description : data.Description;
       updated.Contact = updated.Contact != null ? updated.Contact : data.Contact;
@@ -44,9 +49,15 @@ namespace Contracting.Services
       return _repo.Edit(updated);
     }
 
-    internal string Delete(int id)
+    internal string Delete(int id, string userId)
     {
       var data = GetById(id);
+
+      if (data.CreatorId != userId)
+      {
+        throw new Exception("Invalid Delete Permissions");
+      }
+
       _repo.Delete(id);
       return "DELETED";
     }

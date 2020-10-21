@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using CodeWorks.Auth0Provider;
 using Contracting.Models;
 using Contracting.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Contracting.Controllers
@@ -43,10 +46,18 @@ namespace Contracting.Controllers
     }
 
     [HttpPost]
-    public ActionResult<Job> Create([FromBody] Job newJob)
+    [Authorize]
+    // NOTE ANYTIME you need to use Async/Await you will return a Task
+    public async Task<ActionResult<Job>> Create([FromBody] Job newJob)
     {
       try
       {
+        // NOTE HttpContext == 'req'
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+
+        newJob.CreatorId = userInfo.Id;
+        newJob.Creator = userInfo;
+
         return Ok(_service.Create(newJob));
       }
       catch (Exception e)
@@ -56,10 +67,15 @@ namespace Contracting.Controllers
     }
 
     [HttpPut("{id}")]
-    public ActionResult<Job> Edit([FromBody] Job updated, int id)
+    [Authorize]
+    public async Task<ActionResult<Job>> Edit([FromBody] Job updated, int id)
     {
       try
       {
+        // NOTE HttpContext == 'req'
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        updated.CreatorId = userInfo.Id;
+        updated.Creator = userInfo;
         updated.Id = id;
         return Ok(_service.Edit(updated));
       }
@@ -70,11 +86,14 @@ namespace Contracting.Controllers
     }
 
     [HttpDelete("{id}")]
-    public ActionResult<Job> Delete(int id)
+    [Authorize]
+    public async Task<ActionResult<Job>> Delete(int id)
     {
       try
       {
-        return Ok(_service.Delete(id));
+        // NOTE HttpContext == 'req'
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        return Ok(_service.Delete(id, userInfo.Id));
       }
       catch (Exception e)
       {

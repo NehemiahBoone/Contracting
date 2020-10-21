@@ -11,7 +11,9 @@ namespace Contracting.Models
     [Required]
     public string Contact { get; set; }
     public decimal HourlyPay { get; set; }
+    public string CreatorId { get; set; }
     public int Id { get; set; }
+    public Profile Creator { get; set; }
   }
 
   public class JobBidViewModel : Job

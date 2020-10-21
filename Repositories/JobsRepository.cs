@@ -15,8 +15,17 @@ namespace Contracting.Repositories
     }
     internal IEnumerable<Job> GetAll()
     {
-      string sql = "SELECT * FROM jobs";
-      return _db.Query<Job>(sql);
+      string sql = @"
+      SELECT
+      j.*,
+      prof.*
+      FROM jobs j
+      JOIN profiles prof ON j.creatorId = prof.id";
+      return _db.Query<Job, Profile, Job>(sql, (job, profile) =>
+      {
+        job.Creator = profile;
+        return job;
+      }, splitOn: "id");
     }
 
     internal Job GetById(int id)
@@ -29,9 +38,9 @@ namespace Contracting.Repositories
     {
       string sql = @"
       INSERT INTO jobs
-      (location, description, contact, hourlyPay)
+      (location, description, contact, hourlyPay, creatorId)
       VALUES
-      (@Location, @Description, @Contact, @HourlyPay);
+      (@Location, @Description, @Contact, @HourlyPay, @CreatorId);
       SELECT LAST_INSERT_ID();";
       int id = _db.ExecuteScalar<int>(sql, newJob);
       newJob.Id = id;
@@ -46,7 +55,8 @@ namespace Contracting.Repositories
         contact = @Contact,
         location = @Location,
         description = @Description,
-        hourlyPay = @HourlyPay
+        hourlyPay = @HourlyPay,
+        creatorId = @CreatorId
       WHERE id = @Id;";
       _db.Execute(sql, updated);
       return updated;

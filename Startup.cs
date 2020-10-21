@@ -58,6 +58,9 @@ namespace Contracting
 
       services.AddScoped<IDbConnection>(x => CreateDbConnection());
 
+      services.AddTransient<ProfilesService>();
+      services.AddTransient<ProfilesRepository>();
+
       services.AddTransient<JobsService>();
       services.AddTransient<JobsRepository>();
 
