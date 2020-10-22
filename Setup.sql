@@ -1,42 +1,61 @@
-
-CREATE TABLE profiles(
-  id VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  name VARCHAR(255),
-  picture VARCHAR(255),
-  PRIMARY KEY (id)
-);
-
-
-CREATE TABLE jobs
-(
+CREATE TABLE reviews(
   id INT NOT NULL AUTO_INCREMENT,
-  location VARCHAR(255) NOT NULL,
-  description VARCHAR(255),
-  contact VARCHAR(255) NOT NULL,
-  hourlyPay DECIMAL(6, 2) NOT NULL,
-  creatorId VARCHAR(255) NOT NULL,
+  title VARCHAR(255),
+  body VARCHAR(255),
+  rating VARCHAR(255),
+  contractorId INT,
   PRIMARY KEY (id),
 
-  FOREIGN KEY (creatorId)
-    REFERENCES profiles (id)
+  INDEX (contractorId),
+
+  FOREIGN KEY (contractorId)
+    REFERENCES contractors (id)
     ON DELETE CASCADE
 );
 
-CREATE TABLE contractors
-(
-  id INT NOT NULL AUTO_INCREMENT,
-  name VARCHAR(255),
-  address VARCHAR(255),
-  contact VARCHAR(255),
-  skills VARCHAR(255),
-  creatorId VARCHAR(255) NOT NULL,
-  PRIMARY KEY (id),
 
-  FOREIGN KEY (creatorId)
-    REFERENCES profiles (id)
-    ON DELETE CASCADE
-);
+
+
+
+
+-- CREATE TABLE profiles(
+--   id VARCHAR(255) NOT NULL,
+--   email VARCHAR(255) NOT NULL,
+--   name VARCHAR(255),
+--   picture VARCHAR(255),
+--   PRIMARY KEY (id)
+-- );
+
+
+-- CREATE TABLE jobs
+-- (
+--   id INT NOT NULL AUTO_INCREMENT,
+--   location VARCHAR(255) NOT NULL,
+--   description VARCHAR(255),
+--   contact VARCHAR(255) NOT NULL,
+--   hourlyPay DECIMAL(6, 2) NOT NULL,
+--   creatorId VARCHAR(255) NOT NULL,
+--   PRIMARY KEY (id),
+
+--   FOREIGN KEY (creatorId)
+--     REFERENCES profiles (id)
+--     ON DELETE CASCADE
+-- );
+
+-- CREATE TABLE contractors
+-- (
+--   id INT NOT NULL AUTO_INCREMENT,
+--   name VARCHAR(255),
+--   address VARCHAR(255),
+--   contact VARCHAR(255),
+--   skills VARCHAR(255),
+--   creatorId VARCHAR(255) NOT NULL,
+--   PRIMARY KEY (id),
+
+--   FOREIGN KEY (creatorId)
+--     REFERENCES profiles (id)
+--     ON DELETE CASCADE
+-- );
 
 
 

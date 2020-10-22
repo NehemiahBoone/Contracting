@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Contracting.Models;
 using Contracting.Repositories;
 
 namespace Contracting.Services
@@ -12,7 +14,7 @@ namespace Contracting.Services
       _repo = repo;
       _contractorsRepo = contractorsRepo;
     }
-    internal object GetById(int id)
+    internal Review GetById(int id)
     {
       var data = _repo.GetById(id);
 
@@ -22,6 +24,18 @@ namespace Contracting.Services
       }
 
       return data;
+    }
+
+    internal IEnumerable<Review> GetReviewsByContractorId(int id)
+    {
+      var contractor = _contractorsRepo.GetById(id);
+
+      if (contractor == null)
+      {
+        throw new Exception("Invalid Id");
+      }
+
+      return _repo.GetReviewsByContractorId(id);
     }
   }
 }

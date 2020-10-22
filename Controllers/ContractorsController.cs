@@ -12,10 +12,12 @@ namespace Contracting.Controllers
   {
     private readonly ContractorsService _service;
     private readonly JobsService _jobsService;
-    public ContractorsController(ContractorsService cs, JobsService js)
+    private readonly ReviewsService _reviewsService;
+    public ContractorsController(ContractorsService cs, JobsService js, ReviewsService rs)
     {
       _service = cs;
       _jobsService = js;
+      _reviewsService = rs;
     }
 
     [HttpGet]
@@ -50,6 +52,19 @@ namespace Contracting.Controllers
       try
       {
         return Ok(_jobsService.GetJobsByContractorId(id));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [HttpGet("{id}/reviews")]
+    public ActionResult<IEnumerable<Review>> GetReviews(int id)
+    {
+      try
+      {
+        return Ok(_reviewsService.GetReviewsByContractorId(id));
       }
       catch (Exception e)
       {

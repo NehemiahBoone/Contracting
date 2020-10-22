@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Contracting.Controllers
 {
   [ApiController]
-  [Route("api/[controller]")]4
+  [Route("api/[controller]")]
   public class ReviewsController : ControllerBase
   {
     private readonly ReviewsService _service;
@@ -25,7 +25,7 @@ namespace Contracting.Controllers
       }
       catch (Exception e)
       {
-        return BadRequest(e.Message)
+        return BadRequest(e.Message);
       }
     }
 
