@@ -23,7 +23,7 @@ namespace Contracting.Services
       var data = _repo.GetById(id);
       if (data == null)
       {
-        throw new Exception("Invalid Id");
+        throw new Exception("Invalid dId");
       }
       return data;
     }

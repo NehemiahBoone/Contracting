@@ -91,7 +91,7 @@ namespace Contracting
       Auth0ProviderExtension.ConfigureKeyMap(new List<string>() { "id" });
 
       app.UseHttpsRedirection();
-
+      
       app.UseRouting();
       app.UseAuthentication();
       app.UseAuthorization();

@@ -702,11 +702,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\source\\codeworks\\Contracting\\Contracting.csproj",
+      "projectUniqueName": "C:\\source\\codeworks\\Contracting\\Contracting.csproj",
       "projectName": "Contracting",
-      "projectPath": "c:\\source\\codeworks\\Contracting\\Contracting.csproj",
+      "projectPath": "C:\\source\\codeworks\\Contracting\\Contracting.csproj",
       "packagesPath": "C:\\Users\\nehem\\.nuget\\packages\\",
-      "outputPath": "c:\\source\\codeworks\\Contracting\\obj\\",
+      "outputPath": "C:\\source\\codeworks\\Contracting\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\nehem\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -766,7 +766,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
       }
     }
   }
